@@ -4,34 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HyperLock</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <!-- Styles for the App -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .header {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .file-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .file-button:hover {
+            background-color: #45a049;
+        }
+
+        .progress-bar {
+            width: 80%;
+            background-color: #ddd;
+            height: 25px;
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: gray;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: starMove 5s infinite ease-in-out;
+        }
+
+        @keyframes starMove {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+    </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="header">
-            <h1>HyperLock</h1>
-            <p class="subheading">Encrypt your Python files in a flash</p>
+        <div class="header">HyperLock</div>
+        <button class="file-button" id="browseButton">Browse Files</button>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
         </div>
-
-        <div class="file-upload">
-            <div id="drop-area" class="drop-area">
-                <p>Drag & Drop your file here</p>
-                <input type="file" id="file-input" class="file-input" />
-            </div>
-        </div>
-
-        <div class="password-field">
-            <input type="password" id="password" placeholder="Enter password (optional)" />
-        </div>
-
-        <div class="button-container">
-            <button id="encrypt-btn" class="btn">Encrypt and Download</button>
-        </div>
-
-        <p id="status" class="status"></p>
+        <div class="footer">Made by C0d3zy! 🔥</div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Stars Animation -->
+    <div class="stars" id="stars"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Star animation logic
+        function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 5 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * window.innerHeight}px`;
+                star.style.left = `${Math.random() * window.innerWidth}px`;
+                star.style.animationDuration = `${Math.random() * 3 + 3}s`;  // Varying speed for the stars
+                starContainer.appendChild(star);
+            }
+        }
+
+        // Call the function to create stars
+        createStars();
+
+        // Simulate encryption progress (for demonstration)
+        document.getElementById("browseButton").addEventListener("click", function () {
+            const progressBar = document.getElementById("progressBar");
+            let progress = 0;
+            let interval = setInterval(function () {
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    alert('Encryption Complete!');
+                } else {
+                    progress += 2;
+                    progressBar.style.width = `${progress}%`;
+                }
+            }, 100); // Adjust the speed of the progress
+        });
+    </script>
 </body>
 </html>
